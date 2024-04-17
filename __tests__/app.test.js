@@ -60,8 +60,49 @@ describe('/api/articles/:article_id',()=>{
     .get('/api/articles/hello')
     .expect(400)
     .then((response)=>{
-      console.log(response.body.msg)
       expect(response.body.msg).toBe('Bad request')
+    })
+  })
+})
+describe('/api/articles',()=>{
+  test('GET:200 sends an array of all article objects',()=>{
+    return request(app)
+    .get('/api/articles')
+    .expect(200)
+    .then((response)=>{
+      const body = response.body
+      expect(body.articles.length).toBe(13)
+      body.articles.forEach((article)=>{
+        expect(typeof article.article_id).toBe('number')
+        expect(typeof article.title).toBe("string")
+        expect(typeof article.topic).toBe("string")
+        expect(typeof article.author).toBe("string")
+        expect(typeof article.created_at).toBe('string')
+        expect(typeof article.votes).toBe('number')
+        expect(typeof article.article_img_url).toBe("string")
+      })
+    })
+  })
+  test('GET:200 should return an array of article objects with comment_count added',()=>{
+    return request(app)
+    .get('/api/articles')
+    .expect(200)
+    .then((response)=>{
+      const body = response.body
+      body.articles.forEach((article)=>{
+        expect(typeof article.comment_count).toBe("string")
+      })
+    })
+  })
+  test('GET:200 should return all articles in descending order by date/created_at',()=>{
+    return request(app)
+    .get('/api/articles')
+    .expect(200)
+    .then((response)=>{
+      const body = response.body
+        expect(body.articles).toBeSortedBy('created_at',{
+          descending: true
+      })
     })
   })
 })
