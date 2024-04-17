@@ -20,3 +20,8 @@ exports.handleBadRequestErrors = ((err, req, res, next)=>{
     }
     else next(err)
 })
+
+exports.handleSeverErrors = ((err, req, res, next)=>{
+    console.log(err)
+    res.status(500).send({msg: 'Internal Sever Error'})
+})
