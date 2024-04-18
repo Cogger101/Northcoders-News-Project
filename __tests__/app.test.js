@@ -148,12 +148,43 @@ describe("/api/articles/:article_id/comments",()=>{
     .get('/api/articles/999/comments')
     .expect(404)
     .then((response)=>{
-      expect(response.body.msg).toBe('article_id does not exist')
+      expect(response.body.msg).toBe('article does not exist')
     })
   })
 })
 describe("/api/articles/:article_id/comments",()=>{
   test("POST:201 adds a new comment for an article",()=>{
-    
+    const newComment = {
+      username: "butter_bridge",
+      body: "The body of all bodies, Ronald Swanson's bodies!"
+    }
+    return request(app)
+    .post("/api/articles/2/comments")
+    .send(newComment)
+    .expect(201)
+    .then((response)=>{
+      const comment = response.body
+      expect(comment.article_id).toBe(2)
+      expect(comment.author).toBe('butter_bridge')
+      expect(comment.body).toBe("The body of all bodies, Ronald Swanson's bodies!")
+    })
+  })
+  test('POST:400 responds with an appropriate status and error message when provided with a type error or no ID entered',()=>{
+    return request(app)
+    .post("/api/articles/two/comments")
+    .send( {body: "The body of all bodies, Ronald Swanson's bodies!"
+    })
+    .expect(400)
+    .then((response)=>{
+      expect(response.body.msg).toBe('Bad request')
+    })
+  })
+  test('POST:404 send appropriate status and error message when given a valid but non-existent id',()=>{
+    return request(app)
+    .post('/api/articles/999/comments')
+    .expect(404)
+    .then((response)=>{
+      expect(response.body.msg).toBe('article does not exist')
+    })
   })
 })

@@ -1,4 +1,4 @@
-const {selectTopics, selectArticleId, selectAllArticles, selectAllCommentsPerId} = require('../models/models.js')
+const {selectTopics, selectArticleId, selectAllArticles, selectAllCommentsPerId, insertComment} = require('../models/models.js')
 const endpoints = require('../endpoints.json')
 const comments = require('../db/data/test-data/comments.js')
 
@@ -34,6 +34,17 @@ exports.getComments = (req, res, next)=>{
     const {article_id} = req.params
     selectAllCommentsPerId(article_id).then((comments)=>{
         res.status(200).send({comments})
+    })
+    .catch((err)=>{
+        next(err)
+    })
+}
+
+exports.postComment =(req, res, next)=>{
+    const {article_id} = req.params
+    const newComment = req.body
+    insertComment(newComment, article_id).then((comment)=>{
+        res.status(201).send(comment)
     })
     .catch((err)=>{
         next(err)

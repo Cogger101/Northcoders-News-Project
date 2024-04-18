@@ -33,8 +33,20 @@ exports.selectAllCommentsPerId = (article_id)=>{
    WHERE comments.article_id = $1
    ORDER BY created_at DESC;`,[article_id]).then((results=>{
       if (results.rows.length === 0){
-         return Promise.reject({status:404, msg: 'article_id does not exist'})
+         return Promise.reject({status:404, msg: 'article does not exist'})
       }
       return results.rows
    }))
+}
+
+exports.insertComment = ( newComment, article_id)=>{
+   const {username, body} = newComment
+   return db.query(`INSERT INTO comments (author, body, article_id) 
+   VALUES ($1, $2, $3)
+   RETURNING *;`,[username,body,article_id]).then((results)=>{
+      if (results.rows.length === 0){
+         return Promise.reject({status:404, msg: 'article does not exist'})
+      }
+      return results.rows[0]
+   })
 }
