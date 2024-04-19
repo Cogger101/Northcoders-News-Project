@@ -51,8 +51,6 @@ exports.insertComment = ( newComment, article_id)=>{
    })
 }
 
-
-
 exports.updateArticle = (updatedVotes, article_id)=>{
    return db.query(`
    UPDATE articles
@@ -65,4 +63,8 @@ exports.updateArticle = (updatedVotes, article_id)=>{
       }
       return rows[0]
    })
+}
+
+exports.removeCommentById = (comment_id)=> {
+   return db.query(`DELETE FROM comments WHERE comment_id = $1`,[comment_id])
 }

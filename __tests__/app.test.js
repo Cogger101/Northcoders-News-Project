@@ -234,3 +234,18 @@ describe("/api/articles/:article_id",()=>{
     })
   })
 })
+describe("/api/comments/:comment_id",()=>{
+  test("DELETE: 204 deletes a comment by comment_id",()=>{
+    return request(app)
+    .delete('/api/comments/2')
+    .expect(204)
+  })
+  test('DELETE:400 responds with an appropriate status and error message when provided with a type error or no ID entered',()=>{
+    return request(app)
+    .delete("/api/comments/four")
+    .expect(400)
+    .then((response)=>{
+      expect(response.body.msg).toBe('Bad request')
+    })
+  })  
+})
