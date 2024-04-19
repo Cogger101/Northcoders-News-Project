@@ -50,3 +50,19 @@ exports.insertComment = ( newComment, article_id)=>{
       return results.rows[0]
    })
 }
+
+
+
+exports.updateArticle = (updatedVotes, article_id)=>{
+   return db.query(`
+   UPDATE articles
+   SET votes = votes + $1
+   WHERE article_id = $2
+   RETURNING *;`, [updatedVotes, article_id])
+   .then(({rows})=>{
+      if (!rows.length){
+         return Promise.reject({status:404, msg: 'article does not exist'})
+      }
+      return rows[0]
+   })
+}

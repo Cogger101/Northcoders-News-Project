@@ -1,4 +1,4 @@
-// Error handling starts here
+// Error handling 
 
 exports.handleCustomErrors = ((err, req, res, next)=>{
     if (err.status){

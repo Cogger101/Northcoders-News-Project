@@ -188,3 +188,23 @@ describe("/api/articles/:article_id/comments",()=>{
     })
   })
 })
+describe("/api/articles/:article_id",()=>{
+  test("PATCH:200 responds with update of incremented vote",()=>{
+    const updatedVotes = {
+      inc_votes: 1
+    }
+    return request(app)
+    .patch("/api/articles/1")
+    .expect(200)
+    .send(updatedVotes)
+    .then(({body})=>{
+      expect(body.article_id).toBe(1)
+      expect(body.votes).toBe(101)
+    })
+  })
+  test('PATCH:200 responds with update of decremented vote',()=>{
+    const updatedVotes = {
+      
+    }
+  })
+})

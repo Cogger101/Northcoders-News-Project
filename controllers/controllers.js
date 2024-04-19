@@ -1,4 +1,4 @@
-const {selectTopics, selectArticleId, selectAllArticles, selectAllCommentsPerId, insertComment} = require('../models/models.js')
+const {selectTopics, selectArticleId, selectAllArticles, selectAllCommentsPerId, insertComment, updateArticle} = require('../models/models.js')
 const endpoints = require('../endpoints.json')
 const comments = require('../db/data/test-data/comments.js')
 
@@ -45,6 +45,17 @@ exports.postComment =(req, res, next)=>{
     const newComment = req.body
     insertComment(newComment, article_id).then((comment)=>{
         res.status(201).send(comment)
+    })
+    .catch((err)=>{
+        next(err)
+    })
+}
+
+exports.patchArticle = (req, res, next)=>{
+    const {article_id} = req.params
+    const updatedVotes = req.body.inc_votes
+    updateArticle(updatedVotes, article_id).then((article)=>{
+        res.status(200).send(article)
     })
     .catch((err)=>{
         next(err)
