@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const {getTopics, getAPI, getArticle, getArticles, getComments, postComment, patchArticle} = require('./controllers/controllers')
+const {getTopics, getAPI, getArticle, getArticles, getComments, postComment, patchArticle, deleteCommentById} = require('./controllers/controllers')
 const {handleCustomErrors, handleBadRequestErrors, handleNotFoundErrors, handleSeverErrors} = require('./error-handling/index')
 
 
@@ -19,6 +19,8 @@ app.get('/api/articles/:article_id/comments', getComments)
 app.post('/api/articles/:article_id/comments', postComment)
 
 app.patch('/api/articles/:article_id', patchArticle)
+
+app.delete('/api/comments/:comment_id', deleteCommentById)
 
 // Error handling starts here
 
