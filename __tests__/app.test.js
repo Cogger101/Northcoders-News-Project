@@ -204,7 +204,33 @@ describe("/api/articles/:article_id",()=>{
   })
   test('PATCH:200 responds with update of decremented vote',()=>{
     const updatedVotes = {
-      
+      inc_votes: -1
     }
+    return request(app)
+    .patch("/api/articles/2")
+    .expect(200)
+    .send(updatedVotes)
+    .then(({body})=>{
+      expect(body.article_id).toBe(2)
+      expect(body.votes).toBe(-1)
+    })
+  })
+  test('PATCH:400 responds with an appropriate status and error message when provided with a type error or no ID entered',()=>{
+    return request(app)
+    .post("/api/articles/two/comments")
+    .send( {body: "The body of all bodies, Ronald Swanson's bodies!"
+    })
+    .expect(400)
+    .then((response)=>{
+      expect(response.body.msg).toBe('Bad request')
+    })
+  })
+  test('PATCH:404 send appropriate status and error message when given a valid type but non-existent id',()=>{
+    return request(app)
+    .post('/api/articles/999/comments')
+    .expect(404)
+    .then((response)=>{
+      expect(response.body.msg).toBe('article does not exist')
+    })
   })
 })
