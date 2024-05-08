@@ -1,3 +1,4 @@
+const cors = require('cors')
 const express = require("express")
 const app = express()
 const {getTopics, getAPI, getArticle, getArticles, getComments, postComment, patchArticle, deleteCommentById, getUsers} = require('./controllers/controllers')
@@ -5,6 +6,8 @@ const {handleCustomErrors, handleBadRequestErrors, handleNotFoundErrors, handleS
 
 
 app.use(express.json())
+
+app.use(cors())
 
 app.get('/api/topics', getTopics)
 

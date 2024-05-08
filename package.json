@@ -4,8 +4,8 @@
   "description": "bc-nc-news",
   "main": "listen.js",
   "scripts": {
-    "start":"node listen.js",
-    "seed-prod":"NODE_ENV=production npm run seed",
+    "start": "node listen.js",
+    "seed-prod": "NODE_ENV=production npm run seed",
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "node ./db/seeds/run-seed.js",
     "test": "jest",
@@ -30,6 +30,7 @@
     "pg-format": "^1.0.4"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.19.2",
     "pg": "^8.7.3",
@@ -37,7 +38,8 @@
   },
   "jest": {
     "setupFilesAfterEnv": [
-      "jest-extended/all", "jest-sorted"
+      "jest-extended/all",
+      "jest-sorted"
     ]
   }
 }
