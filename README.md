@@ -9,9 +9,7 @@ Files to add when connecting the databases:
 - For .env.development PGDATABASE=nc_news
   These files need to be added to a .gitignore file
 
-Installations:
-npm install pg
-npm install jest -D
-npm install
-npm install dotenv --save
-npm install express
+Installations(to ensure you get the right packages):
+npm install or npm i
+
+This is an SQL database for a News website, storing news articles allowing patching request from users able to vote on these articles.
