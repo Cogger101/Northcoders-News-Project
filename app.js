@@ -13,17 +13,17 @@ app.get('/api/topics', getTopics)
 
 app.get('/api', getAPI)
 
-app.get('/api/articles/:article_id', getArticle)
+app.get(`/api/articles/:article_id`, getArticle)
 
 app.get('/api/articles', getArticles)
 
-app.get('/api/articles/:article_id/comments', getComments)
+app.get(`/api/articles/:article_id/comments`, getComments)
 
-app.post('/api/articles/:article_id/comments', postComment)
+app.post(`/api/articles/:article_id/comments`, postComment)
 
 app.patch('/api/articles/:article_id', patchArticle)
 
-app.delete('/api/comments/:comment_id', deleteCommentById)
+app.delete(`/api/comments/:comment_id`, deleteCommentById)
 
 app.get('/api/users', getUsers)
 
