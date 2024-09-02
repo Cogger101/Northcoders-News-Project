@@ -2,6 +2,10 @@
 
 For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
 
+Website - https://nc-news-tthj.onrender.com
+
+Endpoints can be found via endpoints.json
+
 Files to add when connecting the databases:
 
 - create .env.test & .env.development
@@ -12,4 +16,4 @@ Files to add when connecting the databases:
 Installations(to ensure you get the right packages):
 npm install or npm i
 
-This is an SQL database for a News website, storing news articles allowing get and patch requests from users able to view and vote on these articles.
+This is an SQL database for a News website, storing news articles allowing get and patch requests from users able to view, comment and vote on these articles.
